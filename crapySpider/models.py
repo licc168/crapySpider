@@ -17,7 +17,7 @@ def db_connect():
     Performs database connection using database settings from settings.py.
     Returns sqlalchemy engine instance
     """
-    return create_engine(URL(**DATABASE))
+    return create_engine(DATABASE)
 
 
 def create_news_table(engine):

@@ -16,7 +16,7 @@ class HcSpider(scrapy.Spider):
             href = sel.xpath('a/@href').extract()
             if len(href)>0:
                 url = response.urljoin(href[0])
-                #print "parse_url>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+url
+                #print ("parse_url>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+url)
                 yield scrapy.Request(url, callback=self.parse_list)
             #return item
 
@@ -31,4 +31,6 @@ class HcSpider(scrapy.Spider):
         item = Hc360DetailItem()
         title = response.xpath('//h1[@id="comTitle"]/text()')[0].extract()
         item['url'] = response.url
+        item['title'] = title
+
         return item

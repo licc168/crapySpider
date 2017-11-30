@@ -28,13 +28,7 @@ NEWSPIDER_MODULE = 'crapySpider.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
-DATABASE = {'drivername': 'mysql',
-            'host': '47.94.196.111',
-            'port': '3306',
-            'username': 'root',
-            'password': '111111',
-            'database': 'spider',
-            'query': {'charset': 'utf8'}}
+DATABASE = "mysql+pymysql://root:111111@47.94.196.111:3306/spider"
 
 # 几个反正被Ban的策略设置
 DOWNLOAD_TIMEOUT = 20
