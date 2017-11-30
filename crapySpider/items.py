@@ -8,8 +8,26 @@
 import scrapy
 
 
-class Hc360Item(scrapy.Item):
+class Hc360DetailItem(scrapy.Item):
     # define the fields for your item here like:
+    list_url = scrapy.Field()
+    url = scrapy.Field()
     title = scrapy.Field()
     id = scrapy.Field()
     pass
+
+#ip代理采集
+class IpoolItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    ip = scrapy.Field() #ip地址
+    port = scrapy.Field()   #端口号
+    address = scrapy.Field()    #物理地址
+    opacity = scrapy.Field()  #匿名度
+    protocol = scrapy.Field()   #协议，http或https
+    ttl = scrapy.Field()    #生存时间,至今存活时间
+    delay = scrapy.Field()  #响应速度
+    speed = scrapy.Field()  #下载速度KB/s
+    verify_time = scrapy.Field()    #验证时间
+    crawl_time = scrapy.Field() #采集时间
+    source = scrapy.Field() #采集来源

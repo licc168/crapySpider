@@ -14,6 +14,13 @@ BOT_NAME = 'crapySpider'
 SPIDER_MODULES = ['crapySpider.spiders']
 NEWSPIDER_MODULE = 'crapySpider.spiders'
 
+# ITEM_PIPELINES = {
+#
+#     # 'coolscrapy.pipelines.JsonWriterPipeline': 3,
+#     # 'coolscrapy.pipelines.JsonExportPipeline': 4,
+#     'crapySpider.pipelines.IpsDataBasePipeline': 5,
+#     # 'coolscrapy.pipelines.MyImagesPipeline': 6,
+# }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crapySpider (+http://www.yourdomain.com)'
@@ -21,6 +28,19 @@ NEWSPIDER_MODULE = 'crapySpider.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+DATABASE = {'drivername': 'mysql',
+            'host': '47.94.196.111',
+            'port': '3306',
+            'username': 'root',
+            'password': '111111',
+            'database': 'spider',
+            'query': {'charset': 'utf8'}}
+
+# 几个反正被Ban的策略设置
+DOWNLOAD_TIMEOUT = 20
+DOWNLOAD_DELAY = 5
+# 禁用Cookie
+COOKIES_ENABLES = True
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
