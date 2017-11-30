@@ -1,4 +1,4 @@
-# crapy
+# scrapy
 
 2017-11-30
  - 慧聪网数据爬取 HcSpider
