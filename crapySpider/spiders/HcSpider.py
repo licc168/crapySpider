@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
+
+
 from crapySpider.items import Hc360DetailItem
 
+
+'''
+慧聪网数据爬取
+'''
 
 class HcSpider(scrapy.Spider):
     name = "HcSpider"

@@ -16,6 +16,20 @@ class Hc360DetailItem(scrapy.Item):
     id = scrapy.Field()
     pass
 
+
+
+class MadeInChinaItem(scrapy.Item):
+    # define the fields for your item here like:
+    companyName = scrapy.Field()
+    link = scrapy.Field()
+    id = scrapy.Field()
+    pass
+
+
+
+
+
+
 #ip代理采集
 class IpoolItem(scrapy.Item):
     # define the fields for your item here like:

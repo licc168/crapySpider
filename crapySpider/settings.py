@@ -29,10 +29,10 @@ NEWSPIDER_MODULE = 'crapySpider.spiders'
 ROBOTSTXT_OBEY = True
 
 DATABASE = "mysql+pymysql://root:111111@47.94.196.111:3306/spider"
-
+HABASE = "172.18.203.111"
 # 几个反正被Ban的策略设置
 DOWNLOAD_TIMEOUT = 20
-DOWNLOAD_DELAY = 5
+DOWNLOAD_DELAY = 1
 # 禁用Cookie
 COOKIES_ENABLES = True
 # Configure maximum concurrent requests performed by Scrapy (default: 16)

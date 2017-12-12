@@ -4,7 +4,9 @@ import time
 
 from crapySpider.items import IpoolItem
 
-
+'''
+动态爬取IP动态代理池
+'''
 class KdlippoolspiderSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {'crapySpider.pipelines.IpsDataBasePipeline': 300},
