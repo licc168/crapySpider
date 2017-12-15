@@ -26,13 +26,13 @@ NEWSPIDER_MODULE = 'crapySpider.spiders'
 #USER_AGENT = 'crapySpider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY=False
 
 DATABASE = "mysql+pymysql://root:111111@47.94.196.111:3306/spider"
 HABASE = "172.18.203.111"
 # 几个反正被Ban的策略设置
 DOWNLOAD_TIMEOUT = 20
-DOWNLOAD_DELAY = 1
+DOWNLOAD_DELAY = 2
 # 禁用Cookie
 COOKIES_ENABLES = True
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
@@ -102,3 +102,42 @@ COOKIES_ENABLES = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+'''
+      代理设置
+'''
+# Retry many times since proxies often fail
+RETRY_TIMES = 100
+# Retry on most error codes since proxies fail for different reasons
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
+
+DOWNLOADER_MIDDLEWARES = {
+    'crapySpider.middlewares.RandomUserAgentMiddlware': 543,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
+    'scrapy_proxies.RandomProxy': 100,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+}
+
+# Proxy list containing entries like
+# http://host1:port
+# http://username:password@host2:port
+# http://host3:port
+# ...
+PROXY_LIST = 'F:\github_licc\crapySpider\crapySpider\proxy\list.txt'
+
+# Proxy mode
+# 0 = Every requests have different proxy
+# 1 = Take only one proxy from the list and assign it to every requests
+# 2 = Put a custom proxy to use in the settings
+PROXY_MODE = 0
+
+# If proxy mode is 2 uncomment this sentence :
+#CUSTOM_PROXY = "http://host1:port"
+
+'''
+更换-UserAgent
+'''
+# DOWNLOADER_MIDDLEWARES = {
+#    'crapySpider.middlewares.RandomUserAgentMiddlware': 543,
+#    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+# }

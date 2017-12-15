@@ -6,6 +6,8 @@ Desc :
 
 import logging
 
+from crapySpider.spiders.MadeInChinaEnCountSpider import MadeInChinaEnCountSpider
+from crapySpider.spiders.KdlIpPoolSpider import KdlippoolspiderSpider
 from crapySpider.spiders.MadeInChinaEnSpider import MadeInChinaEnSpider
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
@@ -20,7 +22,8 @@ if __name__ == '__main__':
     runner = CrawlerRunner(settings)
     db = db_connect()
     #create_news_table(db)
-    runner.crawl(MadeInChinaEnSpider)
+    #runner.crawl(KdlippoolspiderSpider)
+    runner.crawl(MadeInChinaEnCountSpider)
     d = runner.join()
     d.addBoth(lambda _: reactor.stop())
     # blocks process so always keep as the last statement

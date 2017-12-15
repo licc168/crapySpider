@@ -49,6 +49,10 @@ class IpsDataBasePipeline(object):
                     address=item["address"].encode("utf-8"),
                     crawl_time = item["crawl_time"],
                     source = item["source"].encode("utf-8"))
+
+        with open('F:\github_licc\crapySpider\crapySpider\proxy\list.txt', 'at') as f:
+
+            print(item["protocol"]+"://"+item["ip"]+":"+item["port"], file=f)
         with session_scope(self.Session) as session:
             session.add(a)
 
@@ -76,8 +80,10 @@ class MadeInChinaPipeline(object):
                     address=item["address"].encode("utf-8"),
                     crawl_time = item["crawl_time"],
                     source = item["source"].encode("utf-8"))
-        with session_scope(self.Session) as session:
-            session.add(a)
+        with open('F:\github_licc\crapySpider\crapySpider\proxy\list.txt', 'wt') as f:
+            print(item["ip"]+"   "+item["port"].encode("utf-8"), file=f)
+        # with session_scope(self.Session) as session:
+        #     session.add(a)
 
     def close_spider(self, spider):
         pass

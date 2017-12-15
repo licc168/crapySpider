@@ -12,7 +12,7 @@ class KdlippoolspiderSpider(scrapy.Spider):
         'ITEM_PIPELINES': {'crapySpider.pipelines.IpsDataBasePipeline': 300},
     }
     name = 'KdlIpPoolSpider'
-    allowed_domains = ["kuaidaili.com"]
+    allowed_domains = ["http://www.xicidaili.com/nt"]
     start_urls = (
             'http://www.kuaidaili.com/free/inha/1',
             'http://www.kuaidaili.com/free/intr/1',

@@ -2,7 +2,7 @@
 import happybase
 
 
-connection = happybase.Connection("47.94.196.111")
+connection = happybase.Connection("172.18.203.111","208")
 # connection.create_table(
 #     'mytable',
 #     {'cf1': dict(max_versions=10),
@@ -12,8 +12,6 @@ connection = happybase.Connection("47.94.196.111")
 # )
 
 table = connection.table('mytable')
-table.put(b'row-key', {b'cf1:col1': b'value1',
-                       b'cf1:col2': b'value2'})
 
 row = table.row(b'row-key', columns=[b'cf1:col1', b'cf1:col2'])
 print(row[b'cf1:col1'])
