@@ -18,7 +18,7 @@ class MadeInChinaEnSpider(scrapy.Spider):
     start_urls = [
         "http://www.made-in-china.com/manufacturers-directory/item3/Paint-Coating-1.html",
         "http://www.made-in-china.com/manufacturers-directory/item3/Foam-1.html"
-
+        # "http://www.made-in-china.com/showroom/annie168moyuan"
     ]
 
     header={ 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -37,22 +37,7 @@ class MadeInChinaEnSpider(scrapy.Spider):
         return [Request(url=url,meta={"cookiejar":1},headers=self.header,callback=self.post_login)]
 
     def post_login(self, response):
-        # url='https://login.made-in-china.com/sign-in'
-        # print('Preparing login')
-        #
-        # driver = webdriver.PhantomJS()
-        # driver.get(url)
-        # elem = driver.find_element_by_id("logonInfo.logUserName")
-        # elem.clear()
-        # elem.send_keys(config.madeInChina_userName)
-        # elem = driver.find_element_by_id("logonInfo.logPassword")
-        # elem.clear()
-        # elem.send_keys(config.madeInChina_password)
-        # elem = driver.find_element_by_id("sign-in-submit")
-        # elem.click()
-        # time.sleep(2)
-        # cookies = driver.get_cookies()
-        # driver.close()
+
 
 
         # 下面这句话用于抓取请求网页后返回网页中的_xsrf字段的文字, 用于成功提交表单
@@ -78,44 +63,33 @@ class MadeInChinaEnSpider(scrapy.Spider):
         for url in self.start_urls:
             yield Request(url, meta={'cookiejar': response.meta['cookiejar']})
 
+
+    # def parse(self, response):
+    #     tel = response.xpath("//div[@class ='info-cont-wp']/div[@ class ='item'][2]/div[@ class ='info']/text()").extract()
+    #     tel = response.xpath('//div[@class="sign-wp"]//text()').extract()
+    #     tel = response.xpath('//div[ @class="info-cont-wp"]/div[@ class ="item"][2]/div[@class="info"]/text()').extract()
+    #     print(tel)
+
+
+
+
     def parse(self, response):
         for sel in response.xpath('//div[@class="search-list"]/div[contains(@class,"list-node")]'):
             href = sel.xpath('h2[@class="company-name"]/a/@href').extract()
             if len(href) > 0:
                 url = response.urljoin(href[0])
-                yield scrapy.Request(url, callback=self.parse_item)
+                yield scrapy.Request(url, callback=self.parse_item,meta={'cookiejar': response.meta['cookiejar']})
                 ## 是否还有下一页，如果有的话，则继续
-                # next_pages = response.xpath('//div[@class="pager"]/div[@class="page-num"]/strong/following-sibling::*[1]/@href').extract()
-                # if len(next_pages) > 0:
-                #     page_url = response.urljoin(next_pages[0])
-                #     yield scrapy.Request(page_url, callback=self.parse)
+                next_pages = response.xpath('//div[@class="pager"]/div[@class="page-num"]/strong/following-sibling::*[1]/@href').extract()
+                if len(next_pages) > 0:
+                    page_url = response.urljoin(next_pages[0])
+                    yield scrapy.Request(page_url, callback=self.parse)
 
     def parse_item(self, response):
         url = response.url
-        if url =='http://www.made-in-china.com/showroom/annie168moyuan/':
-            tel = response.xpath("//div[@class ='info-cont-wp']/div[@ class ='item'][2]/div[@ class ='info']/text()").extract()
-            tel = response.xpath('//a[@class="J-company-sign"]/text()').extract()
-
-            print(tel)
-
         item = MadeInChinaItem()
         companyName = response.xpath('//div[@class="main-info"]/h3/strong/a/text()')[0].extract()
 
         print(response.url)
         print(companyName)
         return item
-    def _requests_to_follow(self, response):
-            """重写加入cookiejar的更新"""
-            if not isinstance(response, HtmlResponse):
-                return
-            seen = set()
-            for n, rule in enumerate(self._rules):
-                links = [l for l in rule.link_extractor.extract_links(response) if l not in seen]
-                if links and rule.process_links:
-                    links = rule.process_links(links)
-                for link in links:
-                    seen.add(link)
-                    r = Request(url=link.url, callback=self._response_downloaded)
-                    # 下面这句是我重写的
-                    r.meta.update(rule=n, link_text=link.text, cookiejar=response.meta['cookiejar'])
-                    yield rule.process_request(r)

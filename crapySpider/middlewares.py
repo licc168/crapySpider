@@ -7,7 +7,8 @@
 
 from scrapy import signals
 from fake_useragent import UserAgent
-
+import  IPPools
+import  requests
 class CrapyspiderSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -78,4 +79,14 @@ class RandomUserAgentMiddlware(object):
         get_ua()
         request.headers.setdefault('User-Agent', get_ua())
 
+
+class MyproxiesSpiderMiddleware(object):
+    def __init__(self, ip=''):
+        self.ip = ip
+
+    def process_request(self, request, spider):
+        thisip =   str(IPPools.get_proxy(), encoding = "utf-8")
+        url = request.url
+        if url != "https://login.made-in-china.com/sign-in/?logonInCode=1":
+            request.meta["proxy"] = "http://" + thisip
 

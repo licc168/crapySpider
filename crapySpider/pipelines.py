@@ -10,6 +10,7 @@ from sqlalchemy.orm import sessionmaker
 
 from crapySpider.models import db_connect, IpsPool
 
+
 @contextmanager
 def session_scope(Session):
     """Provide a transactional scope around a series of operations."""
@@ -80,7 +81,7 @@ class MadeInChinaPipeline(object):
                     address=item["address"].encode("utf-8"),
                     crawl_time = item["crawl_time"],
                     source = item["source"].encode("utf-8"))
-        with open('F:\github_licc\crapySpider\crapySpider\proxy\list.txt', 'wt') as f:
+        with open('D:\git\crapySpider\crapySpider\proxy\list.txt', 'wt') as f:
             print(item["ip"]+"   "+item["port"].encode("utf-8"), file=f)
         # with session_scope(self.Session) as session:
         #     session.add(a)

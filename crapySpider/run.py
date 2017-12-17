@@ -21,9 +21,8 @@ if __name__ == '__main__':
     configure_logging(settings)
     runner = CrawlerRunner(settings)
     db = db_connect()
-    #create_news_table(db)
     #runner.crawl(KdlippoolspiderSpider)
-    runner.crawl(MadeInChinaEnCountSpider)
+    runner.crawl(MadeInChinaEnSpider)
     d = runner.join()
     d.addBoth(lambda _: reactor.stop())
     # blocks process so always keep as the last statement
